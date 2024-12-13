@@ -52,7 +52,6 @@ jobs:
         docker logs health-calculator-container
     
     # Etape de check container
-
     - name: Inspect Docker container
       run: |
         docker inspect health-calculator-container
@@ -60,15 +59,15 @@ jobs:
     # Étape 7 : Attendre que le conteneur soit prêt
     - name: Wait for the app to be ready
       run: |
-        sleep 30  # Laisse le temps à l'application de démarrer
-
+        sleep 5  # Laisse le temps à l'application de démarrer
 
     # etape de test
     - name: Run tests inside Docker container
-      run: |
-        docker exec health-calculator-container curl -X POST http://127.0.0.1:5001/bmi -H "Content-Type: application/json" -d '{"height": 1.75, "weight": 70}' | grep '"bmi":22.857142857142858'
-
-
+     run: |
+        docker exec health-calculator-container curl -v -X POST http://127.0.0.1:5001/bmi \
+          -H "Content-Type: application/json" \
+          -d '{"height": 1.75, "weight": 70}' | grep '"bmi":22.857142857142858'
+          
     # Étape 9 : Nettoyer le conteneur
     - name: Stop and clean up Docker container
       run: |
