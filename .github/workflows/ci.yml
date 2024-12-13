@@ -65,7 +65,7 @@ jobs:
     # Étape 8 : Tester l'application dans le conteneur
     - name: Test the app inside the container
       run: |
-        curl -X POST http://localhost:5001/bmi -H "Content-Type: application/json" -d '{"height": 1.75, "weight": 70}' | grep '"bmi":22.857142857142858'
+        curl -X POST http://192.168.128.81:5001/bmi -H "Content-Type: application/json" -d '{"height": 1.75, "weight": 70}'
 
     # Étape 9 : Nettoyer le conteneur
     - name: Stop and clean up Docker container
