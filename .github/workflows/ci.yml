@@ -9,7 +9,7 @@ on:
       - master  # Exécute le workflow sur les pull requests vers "main"
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,3 +35,24 @@ jobs:
       run: |
         source .venv/bin/activate
         python -m unittest discover -s . -p "*.py"
+
+    # Étape 5 : Construire l'image Docker
+    - name: Build Docker image
+      run: |
+        docker build -t health-calculator .
+
+    # Étape 6 : Lancer un conteneur Docker
+    - name: Run Docker container
+      run: |
+        docker run -d --name health-calculator-container -p 5001:5001 health-calculator
+
+    # Étape 7 : Vérifier que le conteneur s'exécute
+    - name: Check Docker container
+      run: |
+        docker ps | grep health-calculator-container
+
+    # Étape 8 : Nettoyer le conteneur
+    - name: Stop and clean up Docker container
+      run: |
+        docker stop health-calculator-container
+        docker rm health-calculator-container
