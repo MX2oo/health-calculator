@@ -46,12 +46,17 @@ jobs:
       run: |
         docker run -d --name health-calculator-container -p 5001:5001 health-calculator
 
-    # Étape 7 : Vérifier que le conteneur s'exécute
-    - name: Check Docker container
+    # Étape 7 : Attendre que le conteneur soit prêt
+    - name: Wait for the app to be ready
       run: |
-        docker ps | grep health-calculator-container
+        sleep 10  # Laisse le temps à l'application de démarrer
 
-    # Étape 8 : Nettoyer le conteneur
+    # Étape 8 : Tester l'application dans le conteneur
+    - name: Test the app inside the container
+      run: |
+        curl -X POST http://localhost:5001/bmi -H "Content-Type: application/json" -d '{"height": 1.75, "weight": 70}' | grep '"bmi":22.857142857142858'
+
+    # Étape 9 : Nettoyer le conteneur
     - name: Stop and clean up Docker container
       run: |
         docker stop health-calculator-container
