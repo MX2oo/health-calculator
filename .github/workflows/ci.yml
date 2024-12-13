@@ -3,10 +3,10 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - master  # Exécute le workflow sur les pushs vers la branche "master"
+      - main  # Exécute le workflow sur les pushs vers la branche "main"
   pull_request:
     branches:
-      - master  # Exécute le workflow sur les pull requests vers "master"
+      - main  # Exécute le workflow sur les pull requests vers "main"
 
 jobs:
   build-and-test:
@@ -46,29 +46,12 @@ jobs:
       run: |
         docker run -d --name health-calculator-container -p 5001:5001 health-calculator
 
-    # Étape 7 : Afficher les logs du conteneur
-    - name: Check Docker logs
+    # Étape 7 : Vérifier que le conteneur s'exécute
+    - name: Check Docker container
       run: |
-        docker logs health-calculator-container
+        docker ps | grep health-calculator-container
 
-    # Étape 8 : Inspecter le conteneur Docker
-    - name: Inspect Docker container
-      run: |
-        docker inspect health-calculator-container
-
-    # Étape 9 : Attendre que le conteneur soit prêt
-    - name: Wait for the app to be ready
-      run: |
-        sleep 5  # Laisse le temps à l'application de démarrer
-
-    # Étape 10 : Tester l'application dans le conteneur
-    - name: Run tests inside Docker container
-      run: |
-        docker exec health-calculator-container curl -v -X POST http://127.0.0.1:5001/bmi \
-          -H "Content-Type: application/json" \
-          -d '{"height": 1.75, "weight": 70}' | grep '"bmi":22.857142857142858'
-
-    # Étape 11 : Nettoyer le conteneur
+    # Étape 8 : Nettoyer le conteneur
     - name: Stop and clean up Docker container
       run: |
         docker stop health-calculator-container

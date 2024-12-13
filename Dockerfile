@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 # Installer curl
-RUN apt-get update && apt-get install -y curl
+RUN apt update && apt    install -y curl
 
 WORKDIR /app
 
@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5001
 
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
