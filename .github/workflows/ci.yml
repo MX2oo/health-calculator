@@ -50,6 +50,12 @@ jobs:
     - name: Check Docker logs
       run: |
         docker logs health-calculator-container
+    
+    # Etape de check container
+
+    - name: Inspect Docker container
+      run: |
+        docker inspect health-calculator-container
 
     # Étape 7 : Attendre que le conteneur soit prêt
     - name: Wait for the app to be ready
