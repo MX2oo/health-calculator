@@ -49,7 +49,7 @@ jobs:
     # Étape 7 : Attendre que le conteneur soit prêt
     - name: Wait for the app to be ready
       run: |
-        sleep 10  # Laisse le temps à l'application de démarrer
+        sleep 30  # Laisse le temps à l'application de démarrer
 
     # Étape 8 : Tester l'application dans le conteneur
     - name: Test the app inside the container
