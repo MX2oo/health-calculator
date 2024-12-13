@@ -46,6 +46,11 @@ jobs:
       run: |
         docker run -d --name health-calculator-container -p 5001:5001 health-calculator
 
+    # Etape de Logs Container
+    - name: Check Docker logs
+      run: |
+        docker logs health-calculator-container
+
     # Étape 7 : Attendre que le conteneur soit prêt
     - name: Wait for the app to be ready
       run: |
