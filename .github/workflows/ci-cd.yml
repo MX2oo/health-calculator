@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2 : Configurer Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      # Étape 3 : Installer les dépendances
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Étape 4 : Exécuter les tests
+      - name: Run tests
+        run: |
+          source venv/bin/activate
+          python -m unittest discover -s . -p "*.py"
+
+      # Étape 5 : Construire l'image Docker
+      - name: Build Docker image
+        run: |
+          docker build -t health-calculator:latest .
+
+      # Étape 6 : Lancer le conteneur Docker pour vérification
+      - name: Run Docker container
+        run: |
+          docker run -d --name health-calculator-container -p 5000:5000 health-calculator:latest
+          sleep 10  # Laisser le conteneur démarrer
+
+      # Étape 7 : Vérifier que le conteneur tourne
+      - name: Check running container
+        run: |
+          docker ps | grep health-calculator-container
+
+      # Étape 8 : Arrêter et nettoyer le conteneur
+      - name: Stop and clean Docker container
+        run: |
+          docker stop health-calculator-container
+          docker rm health-calculator-container
+
+      # Étape 9 : Déployer vers Azure Web App
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'app-py'  # Remplace avec le nom de ton App Service Azure
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
