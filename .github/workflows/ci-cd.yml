@@ -41,7 +41,7 @@ jobs:
       # Étape 6 : Lancer le conteneur Docker pour vérification
       - name: Run Docker container
         run: |
-          docker run -d --name health-calculator-container -p 5000:5000 health-calculator:latest
+          docker run -d --name health-calculator-container -p 5001:5001 health-calculator:latest
           sleep 10  # Laisser le conteneur démarrer
 
       # Étape 7 : Vérifier que le conteneur tourne
