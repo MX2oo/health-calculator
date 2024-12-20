@@ -55,7 +55,7 @@ stop:
 
 # Nettoyer les conteneurs arrêtés
 clean:
-	docker rm $$(docker ps -aq --filter ancestor=$(DOCKER_IMAGE))
+	docker rm -f $$(docker ps -aq --filter ancestor=$(DOCKER_IMAGE))
 
 # Lancer toutes les étapes du projet en une seule commande
 all: init test build run-container
