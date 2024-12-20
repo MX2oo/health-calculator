@@ -145,7 +145,7 @@ Un pipeline CI/CD est configuré dans le fichier `.github/workflows/ci-cd.yml` p
 ├── app.py                # API Flask avec les endpoints
 ├── health_utils.py       # Fonctions utilitaires pour les calculs
 ├── requirements.txt      # Dépendances Python
-├── Dockerfile            # Containerisation
+├── Dockerfile            # Conteneurisation
 ├── Makefile              # Automatisation
 ├── test.py               # Tests unitaires
 ├── .github/workflows/ci-cd.yml # Pipeline CI/CD
