@@ -27,7 +27,7 @@ def bmr():
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Le serveur Flask fonctionne !", 200
+    return "Flask fonctionne !", 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
