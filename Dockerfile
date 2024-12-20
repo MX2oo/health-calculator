@@ -1,6 +1,5 @@
 FROM python:3.9-slim
 
-# Installer curl
 RUN apt update && apt    install -y curl
 
 WORKDIR /app

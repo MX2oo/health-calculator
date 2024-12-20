@@ -14,7 +14,6 @@ help:
 	@echo "  make run        - Run the Flask app locally"
 	@echo "  make build      - Build the Docker image"
 	@echo "  make test       - Run the unit tests"
-	@echo "  make test-api   - Run API tests"
 	@echo "  make run-container - Build and run the containerized application"
 	@echo "  make stop       - Stop the running container"
 	@echo "  make clean      - Remove stopped containers"
