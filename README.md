@@ -5,7 +5,7 @@ Ce projet consiste en un microservice Flask permettant de calculer deux métriqu
 - **BMI (Body Mass Index)** : Indice de masse corporelle.
 - **BMR (Basal Metabolic Rate)** : Taux métabolique de base.
 
-L'application est containerisée avec Docker, automatisée avec Makefile, testée via des tests unitaires, et déployée automatiquement sur **Azure App Service** à l'aide de GitHub Actions.
+L'application est conteneurisée avec Docker, automatisée avec Makefile, testée via des tests unitaires, et déployée automatiquement sur **Azure App Service** à l'aide de GitHub Actions.
 
 ---
 
@@ -48,7 +48,7 @@ L'application est containerisée avec Docker, automatisée avec Makefile, testé
    ```bash
    python app.py
    ```
-   L'application sera accessible sur `http://127.0.0.1:5000`.
+   L'application sera accessible sur `http://127.0.0.1:5001`.
 
 ---
 
@@ -59,14 +59,14 @@ L'application est containerisée avec Docker, automatisée avec Makefile, testé
   ```bash
   curl -X POST -H "Content-Type: application/json" \
   -d '{"height": 1.75, "weight": 70}' \
-  http://127.0.0.1:5000/bmi
+  http://127.0.0.1:5001/bmi
   ```
 
 - **BMR** :
   ```bash
   curl -X POST -H "Content-Type: application/json" \
   -d '{"height": 175, "weight": 70, "age": 25, "gender": "male"}' \
-  http://127.0.0.1:5000/bmr
+  http://127.0.0.1:5001/bmr
   ```
 
 ---
